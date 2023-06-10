@@ -1,38 +1,133 @@
-# EX-12# EX-11 SIMULATION OF ETHERNET USING OPNET SIMULATOR Assignment
+# EX-12 PERFORM A CASE STUDY ABOUT THE DIFFERENT ROUTING ALGORITHMS TO SELECT THE NETWORK PATH WITH ITS OPTIMUM AND ECONOMICAL DURING DATA TRANSFER
 
+# DATE : 24-05-2023
+
+# I. LINK STATE ROUTING 
 # AIM:
-To Study of Network simulator (NS).and Simulation of Congestion Control Algorithms using NS.
+To study the link state routing protocol in NS Simulator.
+# Link State routing
+Routing is the process of selecting best paths in a network. In the past, the term routing was also used 
+to mean forwarding network traffic among networks. However this latter function is much better 
+described as simply forwarding. Routing is performed for many kinds of networks, including the 
+telephone network (circuit switching), electronic data networks (such as
+the Internet), and 
+transportation networks. This article is concerned primarily with routing in electronic data networks 
+using packet switching technology.
+In packet switching networks, routing directs packet forwarding (the transit of logically addressed 
+network packets from their source toward their ultimate destination) through intermediate nodes. 
+Intermediate nodes are typically network hardware devices such as routers, bridges, gateways, 
+firewalls, or switches. General-purpose computers can also forward packets and perform routing, 
+though they are not specialized hardware and may suffer from limited performance. The routing 
+process usually directs forwarding on the basis of routing tables which maintain a record of the routes 
+to various network destinations. Thus, constructing routing tables, which are held in the router's 
+memory, is very important for efficient routing. Most routing algorithms use only one network path at 
+a time. Multipath routing techniques enable the use of multiple alternative paths.
 
-# NET WORK SIMULATOR (NS2)
-# Ns overview
-Ns programming: A Quick start
-Case study I: A simple Wireless network
-Case study II: Create a new agent in Ns
-# Ns overview
-Ns Status
-Periodical release (ns-2.26, Feb 2003)
-Platform support
-FreeBSD, Linux, Solaris, Windows and Mac
-# Ns functionalities
-• Routing, Transportation, Traffic sources,Queuing disciplines, QoS • Wireless • Ad hoc routing, mobile IP, sensor-MAC • Tracing, visualization and various utilitie • NS(Network Simulators) Most of the commercial simulators are GUI driven, while some network simulators are CLI driven. The network model / configuration describes the state of the network (nodes,routers, switches, links) and the events (data transmissions, packet error etc.). An important output of simulations are the trace files. Trace files log every packet, every event that occurred in the simulation and are used for analysis. Network simulators can also provide other tools to facilitate visual analysis of trends and potential trouble spots. Most network simulators use discrete event simulation, in which a list of pending "events" is stored, and those events are processed in order, with some events triggering future events— such as the event of the arrival of a packet at one node triggering the event of the arrival of that packet at a downstream node. Simulation of networks is a very complex task. For example, if congestion is high, then estimation of the average occupancy is challenging because of high variance. To estimate the likelihood of a buffer overflow in a network, the time required for an accurate answer can be extremely large. Specialized techniques such as "control variates" and "importance sampling" have been developed to speed simulation.
+In case of overlapping/equal routes, the following elements are considered in order to decide which 
+routes get installed into the routing table (sorted by priority):
 
-# Examples of network simulators
-There are many both free/open-source and proprietary network simulators. Examples of notable network simulation software are, ordered after how often they are mentioned in research papers:
+1. Prefix-Length: where longer subnet masks are preferred (independent of whether it is within a 
+routing protocol or over different routing protocol)
+2. Metric: where a lower metric/cost is preferred (only valid within one and the same routing 
+protocol)
+3. Administrative distance: where a lower distance is preferred (only valid between different 
+routing protocols)
 
-NS (open source)
-OPNET (proprietary software)
-NetSim (proprietary software)
-# Uses of network simulators
-Network simulators serve a variety of needs. Compared to the cost and time involved in setting up an entire test bed containing multiple networked computers, routers and data links, network simulators are relatively fast and inexpensive. They allow engineers, researchers to test scenarios that might be particularly difficult or expensive to emulate using real hardware - for instance, simulating a scenario with several nodes or experimenting with a new protocol in the network. Network simulators are particularly useful in allowing researchers to test new networking protocols or changes to existing protocols in a controlled and reproducible environment. A typical network simulator encompasses a wide range of networking technologies and can help the users to build complex networks from basic building blocks such as a variety of nodes and links. With the help of simulators, one can design hierarchical networks using various types of nodes like computers, hubs, bridges, routers, switches, links, mobile units etc. Various types of Wide Area Network (WAN) technologies like TCP, ATM, IP etc. and Local Area Network (LAN) technologies like Ethernet, token rings etc., can all be simulated with a typical simulator and the user can test, analyze various standard results apart from devising some novel protocol or strategy for routing etc. Network simulators are also widely used to simulate battlefield networks in Network-centric warfare There are a wide variety of network simulators, ranging from the very simple to the very complex. Minimally, a network simulator must enable a user to represent a network topology, specifying the nodes on the network, the links between those nodes and the traffic between the nodes. More complicated systems may allow the user to specify everything about the protocols used to handle traffic in a network. Graphical applications allow users to easily visualize the workings of their simulated environment. Text-based applications may provide a less intuitive interface, but may permit more advanced forms of customization.
+Routing, in a more narrow sense of the term, is often contrasted with bridging in its assumption that 
+network addresses are structured and that similar addresses imply proximity within the network. 
+Structured addresses allow a single routing table entry to represent the route to a group of devices. In 
+large networks, structured addressing (routing, in the narrow sense) outperforms unstructured 
+addressing (bridging). Routing has become the dominant form of addressing on the Internet. Bridging 
+is still widely used within localized environments.
+# II. FLOODING
+Flooding s a simple routing algorithm in which every incoming packet is sent through every outgoing 
+link except the one it arrived on. Flooding is used in bridging and in systems such as Usenet and peerto-peer file sharing and as part of some routing protocols, including OSPF, DVMRP, and those used 
 
-# Packet loss
-Packet loss occurs when one or more packets of data travelling across a computer network fail to reach their destination. Packet loss is distinguished as one of the three main error types encountered in digital communications; the other two being bit error and spurious packets caused due to noise. Packets can be lost in a network because they may be dropped when a queue in the network node overflows. The amount of packet loss during the steady state is another important property of a congestion control scheme. The larger the value of packet loss, the more difficult it is for transport layer protocols to maintain high bandwidths, the sensitivity to loss of individual packets, as well as to frequency and patterns of loss among longer packet sequences is strongly dependent on the application itself.
+in ad-hoc wireless networks. There are generally two types of flooding available, Uncontrolled 
+Flooding and Controlled Flooding. Uncontrolled Flooding is the fatal law of flooding. All nodes have 
+neighbours and route packets indefinitely. More than two neighbours creates a broadcast storm.
+Controlled Flooding has its own two algorithms to make it reliable, SNCF (Sequence Number 
+Controlled Flooding) and RPF (Reverse Path Flooding). In SNCF, the node attaches its own address 
+and sequence number to the packet, since every node has a memory of addresses and sequence 
+numbers. If it receives a packet in memory, it drops it immediately while in RPF, the node will only 
+send the packet forward. If it is received from the next node, it sends it back to the sender.
+# Algorithm
+There are several variants of flooding algorithm. Most work roughly as follows:
+1. Each node acts as both a transmitter and a receiver.
+2. Each node tries to forward every message to every one of its neighbours except the source 
+node.
 
-# Throughput
-This is the main performance measure characteristic, and most widely used. In communication networks, such as Ethernet or packet radio, throughput or network throughput is the average rate of successful message delivery over a communication channel. The throughput is usually measured in bits per second (bit/s or bps), and sometimes in data packets per second or data packets per time slot. This measure how soon the receiver is able to get a certain amount of data send by the sender. It is determined as the ratio of the total data received to the end to end delay. Throughput is an important factor which directly impacts the network performance.
+This results in every message eventually being delivered to all reachable parts of the network.
+Algorithms may need to be more complex than this, since, in some case, precautions have to be taken 
+to avoid wasted duplicate deliveries and infinite loops, and to allow messages to eventually expire 
+from the system. A variant of flooding called selective flooding partially addresses these issues by 
+only sending packets to routers in the same direction. In selective flooding the routers don't send 
+every incoming packet on every line but only on those lines which are going approximately in the 
+right direction.
+# Advantages
+1. if a packet can be delivered, it will (probably multiple times).
+2. Since flooding naturally utilizes every path through the network, it will also use the shortest 
+path.
+3. This algorithm is very simple to implement.
+# Disadvantages
+1. Flooding can be costly in terms of wasted bandwidth. While a message may only have one 
+destination it has to be sent to every host. In the case of a ping flood or a denial of service attack, it 
+can be harmful to the reliability of a computer network.
+2. Messages can become duplicated in the network further increasing the load on the networks 
+bandwidth as well as requiring an increase in processing complexity to disregard duplicate messages.
+3. Duplicate packets may circulate forever, unless certain precautions are taken:
+• Use a hop count or a time to live count and include it with each packet. This value should take 
+into account the number of nodes that a packet may have to pass through on the way to its destination.
+• Have each node keep track of every packet seen and only forward each packet once
+4. Enforce a network topology without loops
+# III. DISTANCE VECTOR
+In computer communication theory relating to packet-switched networks, a distance-vector 
+routing protocol is one of the two major classes of routing protocols, the other major class being the 
+link-state protocol. Distance-vector routing protocols use the Bellman–Ford algorithm, Ford–
+Fulkerson algorithm, or DUAL FSM (in the case of Cisco Systems's protocols) to calculate paths.
+A distance-vector routing protocol requires that a router informs its neighbors of topology 
+changes periodically. Compared to link-state protocols, which require a router to inform all the nodes 
+in a network of topology changes, distance-vector routing protocols have less computational 
+complexity and message overhead.
 
-# Delay
-Delay is the time elapsed while a packet travels from one point e.g., source premise or network ingress to destination premise or network degrees. The larger the value of delay, the more difficult it is for transport layer protocols to maintain high band widths. We will calculate end to end delay.
+The term distance vector refers to the fact that the protocol manipulates vectors (arrays) of 
+distances to other nodes in the network. The vector distance algorithm was the original ARPANET 
+routing algorithm and was also used in the internet under the name of RIP (Routing Information 
+Protocol).
+Examples of distance-vector routing protocols include RIPv1 and RIPv2 and IGRP. 
+Method
+Routers using distance-vector protocol do not have knowledge of the entire path to a destination. 
+Instead they use two methods:
 
-# Queue Length
-A queuing system in networks can be described as packets arriving for service, waiting for service if it is not immediate, and if having waited for service, leaving the system after being served. Thus queue length is very important characteristic to determine that how well the active queue management of the congestion control algorithm has been working.
+1. Direction in which router or exit interface a packet should be forwarded.
+2. Distance from its destination
+Distance-vector protocols are based on calculating the direction and distance to any link in a network. 
+"Direction" usually means the next hop address and the exit interface. "Distance" is a measure of the 
+cost to reach a certain node. The least cost route between any two nodes is the route with minimum 
+distance. Each node maintains a vector (table) of minimum distance to every node. The cost of 
+reaching a destination is calculated using various route metrics. RIP uses the hop count of the 
+destination whereas IGRP takes into account other information such as node delay and available 
+bandwidth.
+Updates are performed periodically in a distance-vector protocol where all or part of a router's routing 
+table is sent to all its neighbors that are configured to use the same distance-vector routing protocol. 
+RIP supports cross-platform distance vector routing whereas IGRP is a Cisco Systems proprietary 
+distance vector routing protocol. Once a router has this information it is able to amend its own routing 
+table to reflect the changes and then inform its neighbors of the changes. This process has been 
+described as ‗routing by rumor‘ because routers are relying on the information they receive from 
+other routers and cannot determine if the information is actually valid and true. There are a number of
+features which can be used to help with instability and inaccurate routing information.
+EGP and BGP are not pure distance-vector routing protocols because a distance-vector protocol 
+calculates routes based only on link costs whereas in BGP, for example, the local route preference 
+value takes priority over the link cost.
+# Count-to-infinity problem
+The Bellman–Ford algorithm does not prevent routing loops from happening and suffers from the 
+count-to-infinity problem. The core of the count-to-infinity problem is that if A tells B that it has a 
+path somewhere, there is no way for B to know if the path has B as a part of it. To see the problem 
+clearly, imagine a subnet connected like A–B–C–D–E–F, and let the metric between the routers be 
+"number of jumps". Now suppose that A is taken offline. In the vector-update- process B notices that 
+the route to A, which was distance 1, is down – B does not receive the vector update from A. The 
+problem is, B also gets an update from C, and C is still not aware of the fact that A is down – so it 
+tells B that A is only two jumps from C (C to B to A), which is false. This slowly propagates through 
+the network until it reaches infinity (in which case the algorithm corrects itself, due to the relaxation 
+property of Bellman–Ford).
+
